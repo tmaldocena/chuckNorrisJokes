@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -11,12 +12,14 @@ const loginSchema = Yup.object().shape(
 );
 
 
-const LoginFormik = () => {
+const LoginFormik = ({ onSubmit }) => {
 
     const initialCredentials = {
         email: '',
         password: ''
     }
+
+    const history = useHistory();
 
     return (
         <div style={{color: 'white'}}>
@@ -24,11 +27,13 @@ const LoginFormik = () => {
             <Formik
                 initialValues = { initialCredentials }
                 validationSchema= { loginSchema }
-                onSubmit={ async (values) => {
-                    await new Promise((r) => setTimeout(r, 200));
-                    alert(JSON.stringify(values, null, 2));
-                    localStorage.setItem('credentials', values);
-                }}    
+                onSubmit={(values, actions) => {
+                setTimeout(() => {
+                onSubmit(values);
+                actions.resetForm({});
+                actions.setSubmitting(false);
+                }, 500);
+            }}   
             >
 
                 {/* We obtain props from Formik */}

@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { User } from '../../../models/user.class'
 import { ROLES } from '../../../models/role.enum';
 
-const RegisterFormik = () => {
+const RegisterFormik = ({ onSubmit }) => {
 
     let user = new User();
 
@@ -48,11 +48,15 @@ const RegisterFormik = () => {
         <div style={{color: 'white'}}> 
             <h4>Register Formik</h4>
             <Formik
-                initialValue = { initialValue }
+                initialValues = { initialValue }
                 validationSchema= { registerSchema }
-                onSubmit={ async (values) => {
+                onSubmit={ 
+                    async (values) => {
                     await new Promise((r) => setTimeout(r, 200));
-                    alert(JSON.stringify(values, null, 2));
+                  //alert(JSON.stringify(values, null, 2));
+                    onSubmit(values);
+
+                    
                 }}
             >
 
