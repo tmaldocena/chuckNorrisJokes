@@ -41,6 +41,10 @@ h1{
   color: tomato;
 }
 
+h2{
+  color: wheat;
+}
+
 body{
   display: flex;
   align-items: center;
